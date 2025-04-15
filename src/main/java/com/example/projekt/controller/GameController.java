@@ -20,7 +20,7 @@ public class GameController {
     }
 
     @GetMapping("/{id}")
-    public Game getGameById(@PathVariable Long id) {
+    public Game getGameById(@PathVariable("id") Long id) {
         return gameService.getGameById(id);
     }
 
@@ -29,14 +29,14 @@ public class GameController {
         return gameService.saveGame(game);
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/{id}")
     public Game updateGame(@PathVariable Long id, @RequestBody Game game) {
         game.setId(id);
         return gameService.saveGame(game);
     }
 
-    @DeleteMapping
-    public void deleteGame(@PathVariable Long id) {
+    @DeleteMapping("/{id}")
+    public void deleteGame(@PathVariable("id") Long id) {
         gameService.deleteGame(id);
     }
 }
