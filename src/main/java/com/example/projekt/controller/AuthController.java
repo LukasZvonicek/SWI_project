@@ -3,6 +3,7 @@ package com.example.projekt.controller;
 import com.example.projekt.model.entity.AppUser;
 import com.example.projekt.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,12 +27,13 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public String loginUser(@RequestBody AppUser appUser) {
-            AppUser foundUser = userService.findUserByUsername(appUser.getUsername());
-            if (foundUser != null && foundUser.getPassword().equals(appUser.getPassword())) {
-                return "Login Successful";
-            } else {
-                return "Invalid username or password";
+    public ResponseEntity<String> loginUser(@RequestBody AppUser appUser) {
+            boolean loginSuccessful = userService.loginUser(appUser.getUsername(), appUser.getPassword());
+
+            if (loginSuccessful) {
+                return ResponseEntity.ok("Login successful");
+            }else {
+                return ResponseEntity.status(401).body("Invalid username or password");
             }
     }
 }

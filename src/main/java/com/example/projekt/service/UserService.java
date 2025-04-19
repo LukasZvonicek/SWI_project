@@ -18,4 +18,12 @@ public class UserService {
     public AppUser findUserByUsername(String username) {
         return userRepository.findByUsername(username);
     }
+
+    public boolean loginUser (String username, String password) {
+        AppUser appUser = userRepository.findByUsername(username);
+        if (appUser != null && appUser.getPassword().equals(password)) {
+            return true;
+        }
+        return false;
+    }
 }
