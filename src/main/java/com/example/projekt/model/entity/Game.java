@@ -15,6 +15,8 @@ public class Game {
     @Enumerated(EnumType.STRING)
     private Genre genre;
 
-    private String platform;
+    @Enumerated(EnumType.STRING)
+    private Platform platform;
+
     private int releaseYear;
 }
