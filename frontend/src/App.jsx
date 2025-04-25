@@ -10,36 +10,46 @@ function App() {
   const { username, logout } = useContext(AuthContext);
 
   return (
-    <div>
-      <h1>Databáze her</h1>
+    <div className="min-h-screen bg-gray-50 font-sans text-gray-800">
+      <header className="bg-white shadow-md">
+        <div className="max-w-4xl mx-auto flex items-center justify-between p-4">
+          <h1 className="text-2xl font-bold">🎮 Databáze her</h1>
+          <nav className="flex space-x-4 text-blue-600">
+            <Link to="/" className="hover:underline">Domů</Link>
+            {!username ? (
+              <>
+                <Link to="/login" className="hover:underline">Přihlásit</Link>
+                <Link to="/register" className="hover:underline">Registrovat</Link>
+              </>
+            ) : (
+              <>
+                <span>Přihlášen: <strong>{username}</strong></span>
+                <button
+                  onClick={logout}
+                  className="ml-2 px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
+                >
+                  Odhlásit
+                </button>
+              </>
+            )}
+          </nav>
+        </div>
+      </header>
 
-      <nav>
-        <Link to="/">Domů</Link> |{' '}
-        {!username ? (
-          <>
-            <Link to="/login">Přihlásit</Link> |{' '}
-            <Link to="/register">Registrovat</Link>
-          </>
-        ) : (
-          <>
-            Přihlášen jako <strong>{username}</strong>{' '}
-            <button onClick={logout} style={{ marginLeft: '1em' }}>Odhlásit</button>
-          </>
-        )}
-      </nav>
-
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <ProtectedRoute>
-              <Home />
-            </ProtectedRoute>
-          }
-        />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-      </Routes>
+      <main className="max-w-4xl mx-auto p-4">
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <Home />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Routes>
+      </main>
     </div>
   );
 }

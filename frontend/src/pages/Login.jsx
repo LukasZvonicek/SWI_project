@@ -7,8 +7,6 @@ const Login = () => {
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const handleChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
-
   const handleSubmit = e => {
     e.preventDefault();
     fetch('http://localhost:8080/auth/login', {
@@ -28,11 +26,26 @@ const Login = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Přihlášení</h2>
-      <input name="username" placeholder="Uživatelské jméno" onChange={handleChange} required />
-      <input name="password" type="password" placeholder="Heslo" onChange={handleChange} required />
-      <button type="submit">Přihlásit</button>
+    <form onSubmit={handleSubmit} className="max-w-sm mx-auto bg-white p-6 rounded-lg shadow">
+      <h2 className="text-xl font-semibold mb-4">Přihlášení</h2>
+      <label className="block text-sm mb-1">Uživatelské jméno</label>
+      <input
+        name="username"
+        className="w-full border rounded px-2 py-1 mb-4"
+        onChange={e => setFormData({ ...formData, username: e.target.value })}
+        required
+      />
+      <label className="block text-sm mb-1">Heslo</label>
+      <input
+        name="password"
+        type="password"
+        className="w-full border rounded px-2 py-1 mb-4"
+        onChange={e => setFormData({ ...formData, password: e.target.value })}
+        required
+      />
+      <button className="w-full px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">
+        Přihlásit
+      </button>
     </form>
   );
 };

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 
-
 const GameList = () => {
   const [games, setGames] = useState([]);
 
@@ -13,14 +12,21 @@ const GameList = () => {
 
   return (
     <div>
-      <h2>Seznam her</h2>
-      <ul>
+      <h2 className="text-xl font-semibold mb-4">Seznam her</h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {games.map(game => (
-          <li key={game.id}>
-            {game.title} ({game.platform}) - {game.genre} [{game.releaseYear}]
-          </li>
+          <div
+            key={game.id}
+            className="bg-white p-4 rounded-lg shadow hover:shadow-lg transition"
+          >
+            <h3 className="text-lg font-bold">{game.title}</h3>
+            <p className="text-sm text-gray-500">
+              {game.genre} &middot; {game.platform}
+            </p>
+            <p className="mt-2">Rok vydání: <span className="font-medium">{game.releaseYear}</span></p>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 };
