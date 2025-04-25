@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
+
 const GameList = () => {
   const [games, setGames] = useState([]);
 
