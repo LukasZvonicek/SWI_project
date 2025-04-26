@@ -1,9 +1,8 @@
 import React, { useState, useContext } from 'react';
 import { AuthContext } from '../auth/AuthContext';
 
-const GameForm = () => {
-  const { username } = useContext(AuthContext);
- 
+const GameForm = ({ onGameAdded }) => {
+  const { username, role } = useContext(AuthContext);
   const [formData, setFormData] = useState({
     title: '',
     genre: 'ACTION',
@@ -11,21 +10,28 @@ const GameForm = () => {
     releaseYear: ''
   });
 
-  if (!username) return null;
+  if (!username || role !== 'ADMIN') return null;
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    fetch('http://localhost:8080/games', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(formData)
-    })
-      .then(() => window.location.reload())
-      .catch(err => console.error(err));
+    try {
+      const res = await fetch('http://localhost:8080/games', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+        credentials: 'include'
+      });
+      if (!res.ok) throw new Error('Chyba při přidávání hry');
+      const newGame = await res.json();
+      onGameAdded(newGame);  // zavoláme zpět do Home.jsx
+      setFormData({ title: '', genre: 'ACTION', platform: 'PC', releaseYear: '' });
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (

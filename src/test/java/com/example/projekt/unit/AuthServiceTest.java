@@ -9,6 +9,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -46,12 +48,12 @@ public class AuthServiceTest {
         appUser.setUsername("testuser");
         appUser.setPassword("password");
 
-        when(userRepository.findByUsername("testuser")).thenReturn(appUser);
+        when(userRepository.findByUsername("testuser")).thenReturn(Optional.of(appUser));
 
         boolean loginSuccessful = userService.loginUser("testuser", "password");
 
         assertTrue(loginSuccessful);
-        verify(userRepository,times(1)).findByUsername("testuser");
+        verify(userRepository, times(1)).findByUsername("testuser");
     }
 
 }

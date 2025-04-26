@@ -16,11 +16,11 @@ public class UserService {
     }
 
     public AppUser findUserByUsername(String username) {
-        return userRepository.findByUsername(username);
+        return userRepository.findByUsername(username).orElseThrow(() -> new RuntimeException("User not found"));
     }
 
     public boolean loginUser (String username, String password) {
-        AppUser appUser = userRepository.findByUsername(username);
+        AppUser appUser = userRepository.findByUsername(username).orElseThrow(() -> new RuntimeException("User not found"));
         if (appUser != null && appUser.getPassword().equals(password)) {
             return true;
         }

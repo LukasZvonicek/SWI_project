@@ -1,15 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
-const GameList = () => {
-  const [games, setGames] = useState([]);
-
-  useEffect(() => {
-    fetch('http://localhost:8080/games')
-      .then(res => res.json())
-      .then(data => setGames(data))
-      .catch(err => console.error(err));
-  }, []);
-
+const GameList = ({ games }) => {
   return (
     <div>
       <h2 className="text-xl font-semibold mb-4">Seznam her</h2>
@@ -23,7 +14,9 @@ const GameList = () => {
             <p className="text-sm text-gray-500">
               {game.genre} &middot; {game.platform}
             </p>
-            <p className="mt-2">Rok vydání: <span className="font-medium">{game.releaseYear}</span></p>
+            <p className="mt-2">
+              Rok vydání: <span className="font-medium">{game.releaseYear}</span>
+            </p>
           </div>
         ))}
       </div>
