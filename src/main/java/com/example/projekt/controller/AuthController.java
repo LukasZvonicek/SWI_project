@@ -29,14 +29,12 @@ public class AuthController {
         if (optionalUser.isPresent()) {
             AppUser appUser = optionalUser.get();
             if (appUser.getPassword().equals(password)) {
-                // Přihlášení úspěšné
                 response.put("username", appUser.getUsername());
                 response.put("role", appUser.getRole().toString());
                 return response;
             }
         }
 
-        // Přihlášení selhalo
         response.put("error", "Invalid credentials");
         return response;
     }
