@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { AuthContext } from '../auth/AuthContext';
 
 const GameList = ({ games, onGameDeleted }) => {
@@ -30,13 +31,9 @@ const GameList = ({ games, onGameDeleted }) => {
             key={game.id}
             className="bg-white p-4 rounded-lg shadow hover:shadow-lg transition"
           >
-            <h3 className="text-lg font-bold">{game.title}</h3>
-            <p className="text-sm text-gray-500">
-              {game.genre} &middot; {game.platform}
-            </p>
-            <p className="mt-2">
-              Rok vydání: <span className="font-medium">{game.releaseYear}</span>
-            </p>
+            <Link to={`/games/${game.id}`}>
+              <h3 className="text-lg font-bold hover:underline">{game.title}</h3>
+            </Link>
             {role === 'ADMIN' && (
               <button
                 onClick={() => handleDelete(game.id)}

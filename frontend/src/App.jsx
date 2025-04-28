@@ -5,6 +5,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import ProtectedRoute from './auth/ProtectedRoute';
 import { AuthContext } from './auth/AuthContext';
+import GameDetail from './pages/GameDetail';
 
 function App() {
   const { username, logout } = useContext(AuthContext);
@@ -48,6 +49,7 @@ function App() {
           />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/games/:id" element={<GameDetail />} />
         </Routes>
       </main>
     </div>

@@ -4,6 +4,7 @@ package com.example.projekt.controller;
 import com.example.projekt.model.entity.Game;
 import com.example.projekt.service.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,8 +21,13 @@ public class GameController {
     }
 
     @GetMapping("/{id}")
-    public Game getGameById(@PathVariable("id") Long id) {
-        return gameService.getGameById(id);
+    public ResponseEntity<Game> getGameById(@PathVariable Long id) {
+        Game game = gameService.getGameById(id);
+        if (game != null) {
+            return ResponseEntity.ok(game);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping
