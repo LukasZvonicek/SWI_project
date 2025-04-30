@@ -31,6 +31,13 @@ const GameList = ({ games, onGameDeleted }) => {
             key={game.id}
             className="bg-white p-4 rounded-lg shadow hover:shadow-lg transition"
           >
+           {game.imageUrl && (
+            <img
+              src={game.imageUrl}
+              alt={game.title}
+              className="w-full max-h-96 object-contain rounded mb-4 shadow"
+            />
+          )}  
             <Link to={`/games/${game.id}`}>
               <h3 className="text-lg font-bold hover:underline">{game.title}</h3>
             </Link>

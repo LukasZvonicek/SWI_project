@@ -19,4 +19,8 @@ public class Game {
     private Platform platform;
 
     private int releaseYear;
+
+    @Column(length = 1000)
+    private String imageUrl;
+
 }

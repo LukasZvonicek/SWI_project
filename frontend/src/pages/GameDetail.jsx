@@ -23,6 +23,13 @@ export default function GameDetail() {
       <p className="text-gray-600 mb-2">Žánr: {game.genre}</p>
       <p className="text-gray-600 mb-2">Platforma: {game.platform}</p>
       <p className="text-gray-600 mb-2">Rok vydání: {game.releaseYear}</p>
+      {game.imageUrl && (
+        <img
+          src={game.imageUrl}
+          alt={game.title}
+          className="w-full max-h-96 object-contain rounded mb-4 shadow"
+        />
+      )}
       <Link
         to="/"
         className="inline-block mt-4 text-blue-600 hover:underline"

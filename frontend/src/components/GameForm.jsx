@@ -7,7 +7,8 @@ const GameForm = ({ onGameAdded }) => {
     title: '',
     genre: 'ACTION',
     platform: 'PC',
-    releaseYear: ''
+    releaseYear: '',
+    imageUrl: ''
   });
 
   if (!username || role !== 'ADMIN') return null;
@@ -27,7 +28,7 @@ const GameForm = ({ onGameAdded }) => {
       });
       if (!res.ok) throw new Error('Chyba při přidávání hry');
       const newGame = await res.json();
-      onGameAdded(newGame);  // zavoláme zpět do Home.jsx
+      onGameAdded(newGame);
       setFormData({ title: '', genre: 'ACTION', platform: 'PC', releaseYear: '' });
     } catch (err) {
       console.error(err);
@@ -91,6 +92,14 @@ const GameForm = ({ onGameAdded }) => {
             className="w-full border rounded px-2 py-1"
             onChange={handleChange}
             required
+          />
+        </div>
+        <div>
+          <input
+            name="imageUrl"
+            className="w-full border rounded px-2 py-1"
+            onChange={handleChange}
+            placeholder="https://example.com/image.jpg"
           />
         </div>
       </div>
